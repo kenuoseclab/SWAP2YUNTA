@@ -1,0 +1,1 @@
+<?php return array('key'=>'XiaoYu_YunTa','name'=>'云塔IDC系统对接插件(开发者：地狱筱雨)(云塔官方API1.0)','version'=>'1.0'); ?>
