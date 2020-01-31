@@ -30,7 +30,7 @@ function XiaoYu_YunTa_CreateAccount($params){
 		),
 	);
     $content = XiaoYu_YunTa_POSTDATA($XiaoYu_YunTa_POSTDATA);
-	if($content['ret'] == "success"){
+	if($content['msg'] == "开通成功"){
 		if(!empty($content['username']) || !empty($content['password'])){
 			if(empty($content['username'])){
 				$content['username'] = $params['username'];
