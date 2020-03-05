@@ -2,7 +2,7 @@
 
 //SWAP对接云塔IDC系统
 //作责：地狱筱雨
-//邮箱：2031464675@qq.com
+//邮箱：2119566807@qq.com
 
 function XiaoYu_YunTa_POSTDATA($params){
 	$return = file_get_contents($params['url']."?".http_build_query($params['data']));
@@ -11,7 +11,7 @@ function XiaoYu_YunTa_POSTDATA($params){
 
 function XiaoYu_YunTa_ConfigOptions()
 {
-    $configarray = array("产品ID" => array("Type" => "text", "Description" => "产品id"));
+    $configarray = array("产品ID" => array("Type" => "text", "Description" => "产品id"), "开通优惠码" => array("Type" => "text", "Description" => "可用于代理开通的优惠码，咨询上级"));
     return $configarray;
 }
 function XiaoYu_YunTa_CreateAccount($params){
@@ -19,7 +19,7 @@ function XiaoYu_YunTa_CreateAccount($params){
 	$year = json_decode($cp['周期'], true);
 	$year = $year['介绍'];
     $XiaoYu_YunTa_POSTDATA = array(
-		'url' => $params['serverhostname'] . "api/CreateService.php",
+		'url' => $params['serverhostname'] . "api/User/CreateService.php",
 		'data' => array(
 			'ytidc_user' => $params['serverusername'],
             'ytidc_pass' => $params['serverpassword'],
@@ -27,6 +27,7 @@ function XiaoYu_YunTa_CreateAccount($params){
             'password' => $params['password'],
 			'time' => $year,
 			'product' => $params['configoption1'],
+			'promo_code' => $params['configoption2'],
 		),
 	);
     $content = XiaoYu_YunTa_POSTDATA($XiaoYu_YunTa_POSTDATA);
@@ -53,7 +54,7 @@ function XiaoYu_YunTa_ServerRenewalAccount($params){
 	$year = json_decode($cp['周期'], true);
 	$year = $year['介绍'];
     $XiaoYu_YunTa_POSTDATA = array(
-		'url' => $params['serverhostname'] . "api/RenewService.php",
+		'url' => $params['serverhostname'] . "api/User/RenewService.php",
 		'data' => array(
 			'ytidc_user' => $params['serverusername'],
 			'ytidc_pass' => $params['serverpassword'],
@@ -78,7 +79,7 @@ function XiaoYu_YunTa_TerminateAccount($params){
 }
 
 function XiaoYu_YunTa_ClientArea($params ){	
-	$OSWAP_5fbd4faf3630168a85b97b131d2fb6ea = array('<form name="frm" action="'.$params["serverhostname"].'api/LoginService.php" method="get" target="_blank"><input type="hidden" value="login" name="module"><input name="username" type="hidden" value="'.$params["username"].'"><input name="password" type="hidden" value="'.$params["password"].'"></form><a href="javascript:document.frm.submit();
+	$OSWAP_5fbd4faf3630168a85b97b131d2fb6ea = array('<form name="frm" action="'.$params["serverhostname"].'api/User/LoginService.php" method="get" target="_blank"><input type="hidden" value="login" name="module"><input name="username" type="hidden" value="'.$params["username"].'"><input name="password" type="hidden" value="'.$params["password"].'"></form><a href="javascript:document.frm.submit();
 ">登入控制面板</a>');
  return $OSWAP_5fbd4faf3630168a85b97b131d2fb6ea;
 }
