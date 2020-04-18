@@ -51,8 +51,10 @@ function XiaoYu_YunTa_CreateAccount($params){
 
 function XiaoYu_YunTa_ServerRenewalAccount($params){
 	$cp = get_query_vals('服务', '*', array('id' => $params['serviceid']));
-	$year = json_decode($cp['周期'], true);
-	$year = $year['介绍'];
+	$product = get_query_vals('产品', '*', array('id' => $cp['产品id']));
+	$cycleid = $_POST['cycleid'];
+	$year = json_decode($product['周期'], true);
+	$year = $year[$cycleid]['介绍'];
     $XiaoYu_YunTa_POSTDATA = array(
 		'url' => $params['serverhostname'] . "api/User/RenewService.php",
 		'data' => array(
@@ -63,7 +65,7 @@ function XiaoYu_YunTa_ServerRenewalAccount($params){
 		),
 	);
     $content = XiaoYu_YunTa_POSTDATA($XiaoYu_YunTa_POSTDATA);
-	if($content['ret'] == 'success'){
+	if($content['status'] == 'success'){
         return '成功';
     }else{
         return $content['msg'];
